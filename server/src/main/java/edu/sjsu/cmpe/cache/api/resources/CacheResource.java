@@ -1,21 +1,14 @@
 package edu.sjsu.cmpe.cache.api.resources;
 
-import java.util.List;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import com.yammer.dropwizard.jersey.params.LongParam;
 import com.yammer.metrics.annotation.Timed;
-
 import edu.sjsu.cmpe.cache.domain.Entry;
 import edu.sjsu.cmpe.cache.repository.CacheInterface;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
@@ -44,6 +37,14 @@ public class CacheResource {
     @Timed(name = "view-all-entries")
     public List<Entry> getAll() {
         return cache.getAll();
+    }
+
+
+    @GET
+    @Path("count")
+    @Timed(name = "count")
+    public int getCount() {
+        return cache.getAll().size();
     }
 
     @PUT

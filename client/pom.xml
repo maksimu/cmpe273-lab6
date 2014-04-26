@@ -18,6 +18,12 @@
 			<id>repo.codahale.com</id>
 			<url>http://repo.codahale.com/</url>
 		</repository>
+
+        <repository>
+            <id>random-data-generator</id>
+            <url>http://random-data-generator.googlecode.com/svn/releases/maven2</url>
+            <name>random-data-generator</name>
+        </repository>
 	</repositories>
 
 	<dependencies>
@@ -26,7 +32,20 @@
 			<artifactId>unirest-java</artifactId>
 			<version>1.3.8</version>
 		</dependency>
-	</dependencies>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>17.0-rc2</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.soqqo</groupId>
+            <artifactId>random-data-generator</artifactId>
+            <version>0.01</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
@@ -100,7 +119,7 @@
 			</plugin>
 			<plugin>
 				<!-- You'll probably want to remove this for your project. I'm just using 
-					it here so that dropwizard-example doesn't get deployed as a library. -->
+					it here so that dropwizard-example doesn't findNodeForAnObject deployed as a library. -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
 				<version>2.7</version>

@@ -23,7 +23,8 @@ public class DistributedCacheService implements CacheServiceInterface {
     public String get(long key) {
         HttpResponse<JsonNode> response = null;
         try {
-            response = Unirest.get(this.cacheServerUrl + "/cache/{key}")
+            response = Unirest
+                    .get(this.cacheServerUrl + "/cache/{key}")
                     .header("accept", "application/json")
                     .routeParam("key", Long.toString(key)).asJson();
         } catch (UnirestException e) {
@@ -35,11 +36,13 @@ public class DistributedCacheService implements CacheServiceInterface {
     }
 
     /**
-     * @see edu.sjsu.cmpe.cache.client.CacheServiceInterface#put(long,
-     *      java.lang.String)
+     * @see edu.sjsu.cmpe.cache.client.CacheServiceInterface#put(long, java.lang.String)
      */
     @Override
     public void put(long key, String value) {
+
+        System.out.println("Inserting [" + key + " ==> " + value + "] TO [" + cacheServerUrl + "]");
+
         HttpResponse<JsonNode> response = null;
         try {
             response = Unirest
@@ -55,4 +58,25 @@ public class DistributedCacheService implements CacheServiceInterface {
             System.out.println("Failed to add to the cache.");
         }
     }
+
+
+    @Override
+    public String getCount() {
+        HttpResponse<String> response = null;
+        try {
+            response = Unirest
+                    .get(this.cacheServerUrl + "/cache/count").asString();
+        } catch (UnirestException e) {
+            System.err.println(e);
+        }
+        String value = response.getBody();
+
+        return value;
+    }
+
+    public String getCacheServerUrl(){
+        return cacheServerUrl;
+    }
 }
+
+
